@@ -1,0 +1,495 @@
+:root {
+  font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #f6f4ff;
+  background-color: #050914;
+  --panel-bg: rgba(10, 14, 30, 0.2);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --pill-bg: rgba(255, 255, 255, 0.12);
+  --pill-bg-hover: rgba(255, 255, 255, 0.2);
+  --muted: rgba(255, 255, 255, 0.7);
+  --success: #7fe3c4;
+  --warning: #ffb070;
+  --danger: #ff6b7c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #1e2c51, #050914 70%);
+  color: #f6f4ff;
+  overflow-x: hidden;
+}
+
+#skyCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+  padding: 3rem clamp(1.5rem, 3vw, 4rem) 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.branding {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logo-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(130deg, #ff9d6c, #ffe36d);
+  box-shadow: 0 10px 30px rgba(255, 170, 110, 0.35);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.2rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.location-chip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 18px;
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(20px);
+}
+
+.location-chip small {
+  color: var(--muted);
+}
+
+.panels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.clock-panel {
+  grid-column: span 2;
+  min-height: 220px;
+}
+
+.clock-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.clock-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  flex: 0 0 200px;
+}
+
+.analog-clock {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.analog-clock::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.clock-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%) rotate(0deg);
+  border-radius: 999px;
+}
+
+.clock-hand.hour {
+  width: 6px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.9);
+  bottom: 44px;
+}
+
+.clock-hand.minute {
+  width: 4px;
+  height: 75px;
+  background: rgba(255, 255, 255, 0.8);
+  bottom: 14px;
+}
+
+.clock-hand.second {
+  width: 2px;
+  height: 85px;
+  background: #ff9d6c;
+  bottom: 4px;
+}
+
+.clock-center {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff9d6c;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px rgba(255, 157, 108, 0.6);
+}
+
+.hero-time {
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.clock-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pill-btn,
+.ghost-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  background: var(--pill-bg);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.pill-btn:hover,
+.ghost-btn:hover {
+  background: var(--pill-bg-hover);
+  transform: translateY(-1px);
+}
+
+.pill-btn.is-active {
+  background: linear-gradient(120deg, #6c9bff, #9c7bff);
+  box-shadow: 0 10px 30px rgba(108, 155, 255, 0.35);
+}
+
+.ghost-btn {
+  background: transparent;
+  border: 1px solid var(--panel-border);
+}
+
+.clock-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.alarm-panel header,
+.timer-panel header,
+.weather-panel header {
+  margin-bottom: 1rem;
+}
+
+.alarm-form,
+.timer-form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.alarm-form label,
+.timer-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+}
+
+input[type='time'],
+input[type='text'],
+input[type='number'] {
+  font: inherit;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.2);
+  color: inherit;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+.alarms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alarms-list.empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.alarm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.alarm-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.alarm-time {
+  font-size: 1.3rem;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switch input {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.switch span {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.switch span::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s ease;
+}
+
+.switch input:checked + span {
+  background: linear-gradient(120deg, #5ad1ff, #7fe3c4);
+}
+
+.switch input:checked + span::after {
+  transform: translateX(20px);
+}
+
+.timer-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#timerReadout {
+  font-size: 2.2rem;
+  margin: 0;
+}
+
+.timer-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.timer-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, #ffb070, #ff6b7c);
+  transition: width 0.15s linear;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.weather-grid p {
+  margin: 0;
+}
+
+.floating-clock {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  width: 280px;
+  min-width: 220px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(2, 6, 20, 0.7);
+  backdrop-filter: blur(30px);
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+  box-shadow: 0 25px 70px rgba(5, 9, 20, 0.6);
+  resize: both;
+  overflow: hidden;
+}
+
+.floating-clock.is-visible {
+  display: flex;
+}
+
+.floating-clock.is-pinned {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  bottom: auto;
+}
+
+.floating-handle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  cursor: grab;
+  user-select: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.floating-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.floating-time {
+  font-size: 2.8rem;
+  margin: 0;
+}
+
+#floatAlwaysOnTop {
+  margin-top: 0.75rem;
+}
+
+.alarm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%) translateY(120%);
+  background: rgba(7, 9, 20, 0.9);
+  padding: 1rem 1.4rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s ease;
+  z-index: 20;
+}
+
+.alarm-toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-actions button {
+  min-width: 80px;
+}
+
+@media (max-width: 720px) {
+  .clock-panel {
+    grid-column: span 1;
+  }
+
+  .clock-visual {
+    flex: 1 1 100%;
+  }
+
+  .floating-clock {
+    right: 1rem;
+    left: 1rem;
+  }
+}

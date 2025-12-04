@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SkyClock — часы, будильник, таймер и погода</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="skyCanvas" aria-hidden="true"></canvas>
+    <canvas id="sky"></canvas>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="master-artboard" viewBox="0 0 1400 980" version="1.1" x="0px" y="0px" style="enable-background:new 0 0 1400 980;" width="1400px" height="980px"><rect id="ee-background" x="0" y="0" width="1400" height="980" style="pointer-events: none;"/>
+      <g transform="matrix(0.7115957140922547, 0, 0, 0.7115957140922547, -83.42886987190985, 254.97191142806597)"><g id="Layer_2" transform="matrix(1, 0, 0, 1, 0, 0)">
+        <g id="Layer_1-2">
+          <path class="sun" d="M652,46c27.6,0,50,22.4,50,50s-22.4,50-50,50s-50-22.4-50-50S624.4,46,652,46z" style="fill: rgb(255, 245, 61); fill-opacity: 1;"/>
+        </g>
+      </g></g><g transform="matrix(1, 0, 0, 1, 0, 0)">
+          <path d="M 1399.9000244140625 647.2999877929688 L 1299.0999755859375 533.2000122070312 L 1192.4000244140625 596.2999877929688 L 1062.800048828125 466 L 1009.7999877929688 504 L 830.0999755859375 317.1000061035156 L 748.2000122070312 407.20001220703125 L 572.5999755859375 240.10000610351562 L 384 429.8999938964844 L 340.1000061035156 380.6000061035156 L 180.5 570.7000122070312 L 112.9000015258789 532.5999755859375 L -0.9000000357627869 618.2999877929688 L -0.9000000357627869 706.2000122070312 L 1399.9000244140625 727.5 Z" class="st0" style="fill: rgb(98, 106, 134);"/>
+        </g>
+      <g transform="matrix(1, 0, 0, 1, 3.285013174540495, -13.140052698161952)">
+          <g>
+            <path class="st1" d="M1399.9,713.4c-2.7-1.2-3.9-1.6-6.6-2.5c-68.7-24.7-138.2-47.3-208.5-67.7c-11.9-3.4-24.1-6.9-36.5-6.3&#10;&#9;&#9;&#9;&#9;c-12,0.6-23.4,4.9-34.4,9.4c-33.9,13.7-67.1,29.1-99.2,46.3c-21.3-7.6-190.7-80.8-278.9-119.1c-33.8-14.7-72.6-15.3-106.9-1.7&#10;&#9;&#9;&#9;&#9;c-81.3,32.2-230.1,91.2-270.5,107c-22.5,8.8-46.2,16.9-70.5,15.3c-52.2-3.4-88.8-49.2-135.9-70.9C98.4,598.7,41.9,599-1,638.1&#10;&#9;&#9;&#9;&#9;l0.4,130.1c393.8,41.5,822.8,54.8,1223.6,38.2c59.3,8.5,117.2,15.5,176.9,13.7L1399.9,713.4z" style="fill: rgb(84, 85, 111);"/>
+          </g>
+          <g>
+            <g>
+              <path class="st1" d="M746.2,584.2c4.4-12.1,9.3-23.9,14.9-35.5c1.6,16.2,3.3,32.4,4.9,48.7" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M770.3,593.5c2.5-8.2,5.2-16.3,8.1-24.3c1.5,9.9,3,19.8,4.5,29.8" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M803.2,610.3c3.8-17.8,7.7-35.5,11.5-53.3c2.3,10.9,4.7,21.8,7,32.8c3.2,14.8,6.4,29.8,12.8,43.5" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M835.8,620.2c3.2-9.4,7.8-18.2,13.6-26.3c0.3,12.9,1.5,25.8,3.8,38.5" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M897.3,658.5c2-10.2,4.3-20.3,6.9-30.3c2.2,12.3,3.6,24.7,4.4,37.2" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M918.3,663c1.9-5.8,3.9-11.7,5.8-17.5c1.7,9.2,3.4,18.4,5.2,27.6" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M946.8,674.5c1-5.9,2.2-12.3,6.6-16.5c1.6,9.8,2.9,19.7,3.8,29.6" style="fill: rgb(84, 85, 111);"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path class="st1" d="M599.4,588.8c0.3-6.1-1-12.3-3.8-17.7c-2.3,8.1-4.6,16.3-6.9,24.4" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M560.6,607.3c-0.7-7.9-1.4-15.9-2.1-23.8c-0.4-4.9-0.9-9.9-3.5-14.1c-2.4,19.5-5.5,38.8-9.2,58.1" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M522.4,621.4c-3.3-11-6.5-22-9.8-33c-0.9-3-2.2-6.5-5.3-7.2c-2.1,19.3-3.8,38.6-5,57.9" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M477.3,639.8c-1.7-10.8-3.7-21.6-6-32.3c-4.4,16.2-8.8,32.4-13.2,48.6" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M433.9,656c-0.7-6.6-1.5-13.3-2.2-19.9c-2.8,10.9-5.7,21.8-8.5,32.6" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M411.6,664.9c0.8-7.9-0.1-16-2.6-23.5c-1.8,12.6-3.6,25.1-5.5,37.7" style="fill: rgb(84, 85, 111);"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path class="st1" d="M198.4,635.9c1.2-4.6,3.2-8.9,5.7-12.9c0.9,0.4,1.1,1.5,1.2,2.5c0.7,7.3,1.3,14.7,1.9,22" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M221.5,653.6c2.3-10.8,5.5-21.3,9.5-31.6c0.4-1,1-2.2,2.1-2.2c0.2,16.4,1.1,32.7,2.7,49" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M240.5,666.2c0.6-4.8,2.1-9.4,4.2-13.7c1.1,9.2,2.3,18.5,3.4,27.7" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M257.2,677.8c0.5-2.1,1-4.1,1.5-6.2c0-0.2,0.1-0.4,0.2-0.5c0.4-0.3,0.8,0.4,0.9,0.9c0.7,4.3,1.4,8.6,2.1,13&#10;&#9;&#9;&#9;&#9;&#9;" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M81.4,613.8c-0.5-4-0.1-8.1-0.2-12.2c-0.1-4.1-0.8-8.3-3.2-11.6c-1.3,11.8-2.5,23.6-3.5,35.4" style="fill: rgb(84, 85, 111);"/>
+            </g>
+            <g>
+              <path class="st1" d="M61.7,619.5c-0.5-9.1-3.1-18.1-7.3-26.2c-0.3,16.9-3.9,33.6-7.6,50.1" style="fill: rgb(84, 85, 111);"/>
+            </g>
+          </g>
+        </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)">
+          <g>
+            <path class="st2 tree" d="M1183.2,751.1c0.1-0.1,0.2-0.2,0.3-0.4c-0.3-0.1-0.5-0.3-0.8-0.4L1183.2,751.1z" style="fill: rgb(41, 37, 54);"/>
+          </g>
+          <g>
+            <path class="st2 tree" d="M1296.9,751.1c-8.7-12.1-20.5-22.3-29.2-34.4c6.1,1.2,11.3,2.8,16.9,3.3c-6.7-7.5-17.3-19.2-19.9-29.3&#10;&#9;&#9;&#9;&#9;c4,1.5,7.8,1,10.7,1c-7.2-9.7-13.9-21.4-19-32c3.6,1.9,9.7,3.7,13.8,3.3c-13.8-16.9-23.6-32.5-29.7-50.6c-0.2-0.4-0.8-0.3-1,0&#10;&#9;&#9;&#9;&#9;c-6.2,18-15.9,33.7-29.7,50.6c4.1,0.5,10.2-1.4,13.9-3.3c-5.1,10.6-11.8,22.3-19,32c2.8,0,6.7,0.4,10.7-1&#10;&#9;&#9;&#9;&#9;c-2.6,10.2-13.2,21.8-19.9,29.3c5.6-0.5,10.8-2,16.9-3.3c-8.6,12-20.3,22.1-28.9,34c9.2,4.7,47.8,9.3,56,4.6&#10;&#9;&#9;&#9;&#9;c-0.3,6.4-0.7,15-0.7,15h6.6l-0.8-16.6C1251.8,758.4,1288.7,753.8,1296.9,751.1z" style="fill: rgb(41, 37, 54);"/>
+          </g>
+        </g><g transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path class="st2 tree" d="M990.4,727.4c0.1-0.2,0.2-0.3,0.3-0.4c-0.3-0.2-0.6-0.3-1-0.5L990.4,727.4z" style="fill: rgb(41, 37, 54);"/>
+          </g><path class="st2 tree" d="M1132.6,727.4c-10.9-15.1-25.6-27.9-36.5-43c7.6,1.5,14.1,3.5,21.1,4.1c-8.4-9.5-21.7-24-24.8-36.8&#10;&#9;&#9;&#9;&#9;c5,1.8,9.8,1.3,13.3,1.3c-9-12.2-17.3-26.7-23.7-40c4.5,2.3,12.2,4.6,17.3,4c-17.3-21-29.5-40.6-37.2-63.2c-0.2-0.5-1-0.4-1.3,0&#10;&#9;&#9;&#9;&#9;c-7.7,22.7-19.9,42.2-37.2,63.2c5.1,0.6,12.8-1.7,17.3-4c-6.4,13.3-14.8,27.8-23.7,40c3.5,0,8.3,0.5,13.4-1.3&#10;&#9;&#9;&#9;&#9;c-3.2,12.8-16.5,27.3-24.9,36.8c7-0.6,13.6-2.6,21.2-4.1c-10.8,14.9-25.4,27.6-36.2,42.5c11.5,5.9,59.8,11.7,70.1,5.7&#10;&#9;&#9;&#9;&#9;c-0.4,8-0.8,18.8-0.8,18.8h8.2l-0.9-20.9C1076.2,736.7,1122.4,730.9,1132.6,727.4z" style="fill: rgb(41, 37, 54);" transform="matrix(1, 0, 0, 1, 0, 0)"/><g transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path class="st2 tree" d="M69.3,688.7c0.1-0.1,0.2-0.3,0.3-0.4c-0.3-0.2-0.7-0.3-1-0.5L69.3,688.7z" style="fill: rgb(41, 37, 54);"/>
+          </g><path class="st2 tree" d="M211.5,688.7c-10.9-15.1-25.6-27.9-36.5-42.9c7.6,1.5,14.1,3.5,21.2,4.1c-8.4-9.4-21.7-24-24.9-36.8&#10;&#9;&#9;&#9;&#9;c5,1.8,9.8,1.3,13.4,1.3c-9-12.2-17.3-26.7-23.7-40.1c4.5,2.4,12.2,4.7,17.3,4.1c-17.3-21.1-29.5-40.7-37.2-63.3&#10;&#9;&#9;&#9;&#9;c-0.2-0.4-1-0.4-1.3,0c-7.7,22.6-19.8,42.2-37.2,63.3c5.1,0.6,12.8-1.7,17.3-4.1c-6.4,13.4-14.7,27.9-23.7,40.1&#10;&#9;&#9;&#9;&#9;c3.5,0,8.3,0.5,13.3-1.3c-3.2,12.8-16.5,27.4-24.9,36.8c7.1-0.6,13.6-2.6,21.1-4.1c-10.8,14.9-25.3,27.7-36.2,42.5&#10;&#9;&#9;&#9;&#9;c11.5,5.9,59.8,11.7,70.1,5.7c-0.4,8-0.8,18.8-0.8,18.8h8.2l-0.9-20.8C155.1,698,201.3,692.2,211.5,688.7z" style="fill: rgb(41, 37, 54);" transform="matrix(1, 0, 0, 1, 0, 0)"/><g transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path class="st2 tree" d="M249.7,759.3c0.1-0.2,0.2-0.4,0.3-0.6c-0.3-0.2-0.6-0.5-0.9-0.7L249.7,759.3z" style="fill: rgb(41, 37, 54);"/>
+          </g><path class="st2 tree" d="M391.9,759.3c-10.9-20.8-25.6-38.3-36.5-59.1c7.6,2.1,14.1,4.7,21.1,5.6c-8.4-12.9-21.7-33.1-24.9-50.6&#10;&#9;&#9;&#9;&#9;c5,2.5,9.8,1.9,13.3,1.9c-9-16.8-17.3-36.8-23.7-55.2c4.5,3.2,12.2,6.3,17.3,5.6c-17.3-29-29.5-56-37.2-87.2&#10;&#9;&#9;&#9;&#9;c-0.2-0.6-1-0.6-1.3,0c-7.7,31.2-19.8,58.1-37.2,87.2c5.2,0.7,12.9-2.4,17.3-5.6c-6.4,18.4-14.8,38.4-23.7,55.2&#10;&#9;&#9;&#9;&#9;c3.6,0,8.3,0.7,13.4-1.9c-3.2,17.6-16.6,37.7-24.9,50.6c7-0.9,13.6-3.5,21.1-5.6c-10.8,20.6-25.4,38.1-36.2,58.6&#10;&#9;&#9;&#9;&#9;c11.5,8.1,59.8,16.1,70.1,7.8c-0.4,11-0.8,26-0.8,26h8.2l-0.9-28.7C335.5,772.1,381.7,764.1,391.9,759.3z" style="fill: rgb(41, 37, 54);" transform="matrix(1, 0, 0, 1, 0, 0)"/><g transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path class="st2 tree" d="M442.6,836.8c0.2-0.2,0.3-0.4,0.5-0.7c-0.5-0.3-1-0.5-1.5-0.8L442.6,836.8z" style="fill: rgb(41, 37, 54);"/>
+          </g><path class="st2 tree" d="M650.1,836.8c-15.9-22-37.4-40.7-53.3-62.7c11,2.2,20.6,5.1,30.8,5.9c-12.2-13.7-31.6-34.9-36.3-53.6&#10;&#9;&#9;&#9;&#9;c7.3,2.7,14.3,2,19.5,2c-13.1-17.8-25.2-39-34.6-58.4c6.5,3.4,17.8,6.8,25.2,5.9c-25.2-30.7-43-59.3-54.2-92.3&#10;&#9;&#9;&#9;&#9;c-0.3-0.7-1.5-0.6-1.9,0c-11.2,33-29,61.6-54.2,92.3c7.5,0.9,18.7-2.5,25.3-5.9c-9.4,19.5-21.5,40.6-34.6,58.4&#10;&#9;&#9;&#9;&#9;c5.2,0,12.2,0.7,19.5-2c-4.6,18.7-24.1,39.9-36.3,53.6c10.3-0.8,19.8-3.6,30.9-5.9c-15.7,21.8-36.9,40.3-52.8,62&#10;&#9;&#9;&#9;&#9;c16.8,8.7,87.1,17.1,102.2,8.3c-0.6,11.7-1.2,27.5-1.2,27.5h12l-1.3-30.5C567.7,850.2,635.2,841.8,650.1,836.8z" style="fill: rgb(41, 37, 54);" transform="matrix(1, 0, 0, 1, 0, 0)"/>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)">
+          <g>
+            <path class="st2 mountain" d="M1400,797.8c-212.8-84.4-681.8-51.7-812.9-12.6c-89.5,26.7-255.6-1.1-321.5,4.9&#10;&#9;&#9;&#9;&#9;c-26.9,2.4,269,76.5,284.1,96.7c15.1,20.2,39.2,33.7,64.1,43.2c57.4,21.9,121.2,25.3,183.6,27c113.1,3,226.4,1.2,339.4-5.2&#10;&#9;&#9;&#9;&#9;c74.9-4.3,151.2-11,219.9-38.4c16.4-6.5,33.1-15.1,43.4-27.9V797.8z" style="fill: rgb(41, 37, 54);"/>
+          </g>
+          <g>
+            <path class="st3" d="M587.1,785.3c-89.5,26.7-255.6-1.1-321.5,4.9c-7.2,0.7,8.6,6.4,35.9,14.9c78.2,1.8,208.7,12.7,284.4-11&#10;&#9;&#9;&#9;&#9;c181.3-57,601.3-65,814.2,19.4v-15.6C1187.2,713.5,718.2,746.2,587.1,785.3z" style="fill: rgb(72, 67, 88);"/>
+          </g>
+        </g><g transform="matrix(1, 0, 0, 1, 0, 0)">
+            <path class="st2 mountain" d="M888.5,880.5C733.2,866.4,587,810.6,439.4,764.8c-141.7-44-292.7-79.5-440.4-59.4v274.7l1401-0.1V818.1&#10;&#9;&#9;&#9;&#9;C1232.5,859.5,1060.6,896.1,888.5,880.5z" style="fill: rgb(41, 37, 54);"/>
+          </g><path class="st3" d="M888.9,880.4c-155.3-14.1-301.5-69.8-449.1-115.6c-141.7-44-292.7-79.5-440.4-59.4v11.9&#10;&#9;&#9;&#9;&#9;c147.7-20.1,302.2,8.8,443.9,52.7C591,815.8,734.5,869.9,889.8,884c172.1,15.6,342.6-12.6,510.2-54v-11.9&#10;&#9;&#9;&#9;&#9;C1232.5,859.5,1061,896,888.9,880.4z" style="fill: rgb(72, 67, 88);" transform="matrix(1, 0, 0, 1, 0, 0)"/>
+      <path class="st4" d="M946.5,367.8c-1.3,0-2.7,0.1-3.9,0.3c10.5,4.4,17.9,14.8,17.9,26.9c0,14.8-11,27-25.3,28.9&#10;&#9;&#9;&#9;c3.5,1.5,7.3,2.3,11.3,2.3c16.1,0,29.2-13.1,29.2-29.2C975.7,380.9,962.6,367.8,946.5,367.8z" style="fill: rgb(255, 255, 255);" transform="matrix(1.0811119550540123, 0, 0, 1.0811119550540123, -79.14093553633593, -34.56991128347534)"/>
+      <defs>
+          <filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="103.8" y="73.6" width="263.9" height="166.5">
+            <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+            <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+          </filter>
+        </defs><mask maskUnits="userSpaceOnUse" x="103.8" y="73.6" width="263.9" height="166.5" id="SVGID_1_">
+          <g class="st5" style="filter: url('#Adobe_OpacityMaskFilter');">
+            <defs>
+              <filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="103.8" y="73.6" width="263.9" height="166.5">
+                <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+                <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+              </filter>
+            </defs>
+            <mask maskUnits="userSpaceOnUse" x="103.8" y="73.6" width="263.9" height="166.5" id="SVGID_1_">
+              <g class="st6" style="filter: url('#Adobe_OpacityMaskFilter_1_');">
+              </g>
+            </mask>
+            <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="235.7624" y1="71.2916" x2="235.7624" y2="232.5619">
+              <stop offset="0" style="stop-color:#808080"/>
+              <stop offset="0.1051" style="stop-color:#676767"/>
+              <stop offset="0.2864" style="stop-color:#424242"/>
+              <stop offset="0.4683" style="stop-color:#252525"/>
+              <stop offset="0.6486" style="stop-color:#101010"/>
+              <stop offset="0.8267" style="stop-color:#040404"/>
+              <stop offset="1" style="stop-color:#000000"/>
+            </linearGradient>
+            <path class="st7" d="M321.3,139.5c-0.5,0-1,0-1.5,0c-7.3-37.6-40.4-66-80.2-66c-37,0-68.3,24.7-78.3,58.4&#10;&#9;&#9;&#9;&#9;c-1.1-0.1-2.2-0.1-3.4-0.1c-29.9,0-54.1,24.2-54.1,54.1c0,29.9,24.2,54.1,54.1,54.1c14.8,0,28.3-6,38.1-15.7&#10;&#9;&#9;&#9;&#9;c12.6,8,27.6,12.6,43.6,12.6c18.8,0,36.2-6.4,50-17.1c8.3,7.8,19.5,12.5,31.7,12.5c25.7,0,46.5-20.8,46.5-46.5&#10;&#9;&#9;&#9;&#9;C367.7,160.3,346.9,139.5,321.3,139.5z" style="mask: url('#SVGID_1_'); fill: url('#SVGID_2_');"/>
+          </g>
+        </mask><linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="235.7624" y1="71.2916" x2="235.7624" y2="232.5619">
+          <stop offset="0" style="stop-color:#FFFFFF"/>
+          <stop offset="1" style="stop-color:#FFFFFF"/>
+        </linearGradient><path class="st8" d="M321.3,139.5c-0.5,0-1,0-1.5,0c-7.3-37.6-40.4-66-80.2-66c-37,0-68.3,24.7-78.3,58.4c-1.1-0.1-2.2-0.1-3.4-0.1&#10;&#9;&#9;c-29.9,0-54.1,24.2-54.1,54.1c0,29.9,24.2,54.1,54.1,54.1c14.8,0,28.3-6,38.1-15.7c12.6,8,27.6,12.6,43.6,12.6&#10;&#9;&#9;c18.8,0,36.2-6.4,50-17.1c8.3,7.8,19.5,12.5,31.7,12.5c25.7,0,46.5-20.8,46.5-46.5C367.7,160.3,346.9,139.5,321.3,139.5z" style="fill: url('#SVGID_3_');" transform="matrix(1, 0, 0, 1, 0, 0)"/><defs>
+            <filter id="Adobe_OpacityMaskFilter_2_" filterUnits="userSpaceOnUse" x="1060.2" y="93" width="244.9" height="147">
+              <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+              <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+            </filter>
+          </defs><mask maskUnits="userSpaceOnUse" x="1060.2" y="93" width="244.9" height="147" id="SVGID_4_">
+            <g class="st9" style="filter: url('#Adobe_OpacityMaskFilter_2_');">
+              <defs>
+                <filter id="Adobe_OpacityMaskFilter_3_" filterUnits="userSpaceOnUse" x="1060.2" y="93" width="244.9" height="147">
+                  <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+                  <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+                </filter>
+              </defs>
+              <mask maskUnits="userSpaceOnUse" x="1060.2" y="93" width="244.9" height="147" id="SVGID_4_">
+                <g class="st10" style="filter: url('#Adobe_OpacityMaskFilter_3_');">
+                </g>
+              </mask>
+              <linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="1182.6533" y1="95.597" x2="1182.6533" y2="238.913">
+                <stop offset="0" style="stop-color:#808080"/>
+                <stop offset="0.1438" style="stop-color:#5A5A5A"/>
+                <stop offset="0.2996" style="stop-color:#3A3A3A"/>
+                <stop offset="0.4606" style="stop-color:#202020"/>
+                <stop offset="0.627" style="stop-color:#0E0E0E"/>
+                <stop offset="0.802" style="stop-color:#040404"/>
+                <stop offset="1" style="stop-color:#000000"/>
+              </linearGradient>
+              <path class="st11" d="M1264.3,142.2c-5.1,0-10,1-14.5,2.7c-10.5-11.7-25.6-19-42.5-19c-3.9,0-7.8,0.4-11.5,1.2&#10;&#9;&#9;&#9;&#9;&#9;c-13.1-20.5-35.9-34-62-34c-40.6,0-73.5,32.9-73.5,73.5c0,40.6,32.9,73.5,73.5,73.5c14.5,0,27.9-4.2,39.3-11.4&#10;&#9;&#9;&#9;&#9;&#9;c9.5,7.1,21.4,11.4,34.2,11.4c16.9,0,32.1-7.3,42.5-19c4.5,1.7,9.4,2.7,14.5,2.7c22.5,0,40.7-18.2,40.7-40.7&#10;&#9;&#9;&#9;&#9;&#9;C1305.1,160.5,1286.8,142.2,1264.3,142.2z" style="mask: url('#SVGID_4_'); fill: url('#SVGID_5_');"/>
+            </g>
+          </mask><linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="1182.6533" y1="95.597" x2="1182.6533" y2="238.913">
+            <stop offset="0" style="stop-color:#FFFFFF"/>
+            <stop offset="5.848706e-02" style="stop-color:#FFFFFF"/>
+            <stop offset="1" style="stop-color:#FFFFFF"/>
+          </linearGradient><path class="st12" d="M1264.3,142.2c-5.1,0-10,1-14.5,2.7c-10.5-11.7-25.6-19-42.5-19c-3.9,0-7.8,0.4-11.5,1.2&#10;&#9;&#9;&#9;c-13.1-20.5-35.9-34-62-34c-40.6,0-73.5,32.9-73.5,73.5c0,40.6,32.9,73.5,73.5,73.5c14.5,0,27.9-4.2,39.3-11.4&#10;&#9;&#9;&#9;c9.5,7.1,21.4,11.4,34.2,11.4c16.9,0,32.1-7.3,42.5-19c4.5,1.7,9.4,2.7,14.5,2.7c22.5,0,40.7-18.2,40.7-40.7&#10;&#9;&#9;&#9;C1305.1,160.5,1286.8,142.2,1264.3,142.2z" style="fill: url('#SVGID_6_');" transform="matrix(1, 0, 0, 1, 0, 0)"/><defs>
+          <filter id="Adobe_OpacityMaskFilter_4_" filterUnits="userSpaceOnUse" x="431.9" y="297.9" width="160.9" height="118.6">
+            <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+            <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+          </filter>
+        </defs><mask maskUnits="userSpaceOnUse" x="431.9" y="297.9" width="160.9" height="118.6" id="SVGID_7_">
+          <g class="st13" style="filter: url('#Adobe_OpacityMaskFilter_4_');">
+            <defs>
+              <filter id="Adobe_OpacityMaskFilter_5_" filterUnits="userSpaceOnUse" x="431.9" y="297.9" width="160.9" height="118.6">
+                <feFlood style="flood-color:white;flood-opacity:1" result="back"/>
+                <feBlend in="SourceGraphic" in2="back" mode="normal"/>
+              </filter>
+            </defs>
+            <mask maskUnits="userSpaceOnUse" x="431.9" y="297.9" width="160.9" height="118.6" id="SVGID_7_">
+              <g class="st14" style="filter: url('#Adobe_OpacityMaskFilter_5_');">
+              </g>
+            </mask>
+            <linearGradient id="SVGID_8_" gradientUnits="userSpaceOnUse" x1="514.9872" y1="300.2704" x2="512.1749" y2="384.6372">
+              <stop offset="0" style="stop-color:#808080"/>
+              <stop offset="9.380430e-02" style="stop-color:#6F6F6F"/>
+              <stop offset="0.3876" style="stop-color:#3F3F3F"/>
+              <stop offset="0.6471" style="stop-color:#1D1D1D"/>
+              <stop offset="0.8601" style="stop-color:#080808"/>
+              <stop offset="1" style="stop-color:#000000"/>
+            </linearGradient>
+            <path class="st15" d="M555.2,341.2c-0.3,0-0.5,0-0.8,0c-4.3-24.6-25.8-43.3-51.6-43.3c-29,0-52.4,23.5-52.4,52.4c0,1,0,2,0.1,3&#10;&#9;&#9;&#9;&#9;c-10.7,3.5-18.5,13.6-18.5,25.5c0,14.8,12,26.8,26.8,26.8c7.9,0,15-3.4,19.9-8.8c7.2,3.8,15.4,5.9,24.2,5.9&#10;&#9;&#9;&#9;&#9;c7.2,0,14.2-1.5,20.4-4.1c6.6,10.7,18.5,17.8,32,17.8c20.8,0,37.6-16.9,37.6-37.6S576,341.2,555.2,341.2z" style="mask: url('#SVGID_7_'); fill: url('#SVGID_8_');"/>
+          </g>
+        </mask><linearGradient id="SVGID_9_" gradientUnits="userSpaceOnUse" x1="514.9872" y1="300.2704" x2="512.1749" y2="384.6372">
+          <stop offset="0" style="stop-color:#FFFFFF"/>
+          <stop offset="1" style="stop-color:#FFFFFF"/>
+        </linearGradient><path class="st16" d="M555.2,341.2c-0.3,0-0.5,0-0.8,0c-4.3-24.6-25.8-43.3-51.6-43.3c-29,0-52.4,23.5-52.4,52.4c0,1,0,2,0.1,3&#10;&#9;&#9;c-10.7,3.5-18.5,13.6-18.5,25.5c0,14.8,12,26.8,26.8,26.8c7.9,0,15-3.4,19.9-8.8c7.2,3.8,15.4,5.9,24.2,5.9&#10;&#9;&#9;c7.2,0,14.2-1.5,20.4-4.1c6.6,10.7,18.5,17.8,32,17.8c20.8,0,37.6-16.9,37.6-37.6S576,341.2,555.2,341.2z" style="fill: url('#SVGID_9_');" transform="matrix(1, 0, 0, 1, 0, 0)"/>
+      
+      
+      
+      
+      <g transform="matrix(0.32453489303588867, 0, 0, 0.32453489303588867, 330.1011547977196, 262.15670197819463)"/></svg>
+
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="branding">
+          <span class="logo-dot"></span>
+          <div>
+            <p class="eyebrow">SkyClock</p>
+            <h1>Умные часы с погодой</h1>
+          </div>
+        </div>
+        <div class="location-chip">
+          <div>
+            <p id="locationName">Определяем местоположение…</p>
+            <small id="geoAccuracy">точность ±0 км</small>
+          </div>
+          <button id="refreshWeather" class="ghost-btn">Обновить</button>
+        </div>
+      </header>
+
+      <main class="panels-grid">
+        <section class="panel clock-panel">
+          <div class="clock-head">
+            <div style="text-align: center;" >
+              <p class="eyebrow">Локальное время</p>
+              <div class="clock-visual" aria-hidden="true">
+                <div class="analog-clock" id="analogClock">
+                  <span class="clock-hand hour" id="clockHourHand"></span>
+                  <span class="clock-hand minute" id="clockMinuteHand"></span>
+                  <span class="clock-hand second" id="clockSecondHand"></span>
+                  <span class="clock-center"></span>
+                </div>
+              </div>
+              <p id="clockDate" class="muted">--</p> 
+            </div>
+       
+            <div class="clock-actions">
+              <button style="display: none;"  id="toggleFloating" class="pill-btn">Плавающее окно</button>
+              <button id="pinClock" class="pill-btn">Закрепить поверх</button>
+            </div>
+          </div>
+          <div class="clock-meta">
+            <div>
+             <p class="label">Температура</p>
+             <p id="temperature">— °C</p>
+           </div>
+           <div>
+             <p class="label">Ветер</p>
+             <p id="wind">— м/с</p>
+           </div>
+           <div>
+             <p class="label">Видимость</p>
+             <p id="visibility">— км</p>
+           </div>
+
+         </div>
+          <div class="clock-meta">
+           
+            <div>
+              <p class="label">Режим освещения</p>
+              <p id="timePhase">—</p>
+            </div>
+            <div>
+              <p class="label">Погодное состояние</p>
+              <p id="weatherSummary">—</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel alarm-panel">
+          <header>
+            <h2>Будильники</h2>
+            <small>Создавайте и включайте несколько сигналов</small>
+          </header>
+          <form id="alarmForm" class="alarm-form">
+            <label>
+              <span>Время</span>
+              <input type="time" id="alarmTime" required />
+            </label>
+            <label>
+              <span>Название</span>
+              <input type="text" id="alarmLabel" placeholder="Например, Подъём" />
+            </label>
+            <button type="submit" class="pill-btn">Добавить</button>
+          </form>
+          <div id="alarmsList" class="alarms-list empty">
+            <p>Будильников пока нет</p>
+          </div>
+        </section>
+
+        <section class="panel timer-panel">
+          <header>
+            <h2>Таймер</h2>
+            <small>Быстрый отсчёт с паузой и сбросом</small>
+          </header>
+          <form id="timerForm" class="timer-form">
+            <label>
+              <span>Минуты</span>
+              <input type="number" id="timerMinutes" min="0" max="999" value="0" />
+            </label>
+            <label>
+              <span>Секунды</span>
+              <input type="number" id="timerSeconds" min="0" max="59" value="30" />
+            </label>
+            <div class="timer-actions">
+              <button type="submit" class="pill-btn">Старт</button>
+              <button type="button" id="pauseTimer" class="ghost-btn">Пауза</button>
+              <button type="button" id="resetTimer" class="ghost-btn">Сброс</button>
+            </div>
+          </form>
+          <div class="timer-display">
+            <p id="timerReadout">00:30</p>
+            <div class="timer-progress">
+              <span id="timerProgress"></span>
+            </div>
+          </div>
+        </section>
+
+        <section style="display: none;" class="panel weather-panel">
+          <header>
+            <h2>Погода и пейзаж</h2>
+            <small>Зависит от времени суток и высоты</small>
+          </header>
+          <div class="weather-grid">
+            <div>
+              <p class="label">Температура</p>
+              <p id="temperature">— °C</p>
+            </div>
+            <div>
+              <p class="label">Ветер</p>
+              <p id="wind">— м/с</p>
+            </div>
+            <div>
+              <p class="label">Видимость</p>
+              <p id="visibility">— км</p>
+            </div>
+            <div>
+              <p class="label">Рельеф</p>
+              <p id="terrain">—</p>
+            </div>
+          </div>
+          <p id="weatherHint" class="muted"></p>
+        </section>
+      </main>
+    </div>
+
+    <div class="floating-clock" id="floatingClock" aria-live="polite">
+      <div class="floating-handle" id="floatingHandle">
+        <span>Живой виджет</span>
+        <button id="closeFloating" aria-label="Скрыть">×</button>
+      </div>
+      <div class="floating-body">
+        <p class="floating-time" id="floatingTime">--:--</p>
+        <p class="floating-date" id="floatingDate">--</p>
+        <button id="floatAlwaysOnTop" class="pill-btn">Поверх всех</button>
+      </div>
+    </div>
+
+    <div class="alarm-toast" id="alarmToast" role="alert" aria-live="assertive">
+      <p id="alarmToastText">Будильник</p>
+      <div class="toast-actions">
+        <button id="dismissAlarm" class="pill-btn">Ок</button>
+      </div>
+    </div>
+
+    <template id="alarmRowTemplate">
+      <div class="alarm-row">
+        <div class="alarm-info">
+          <strong class="alarm-time">--:--</strong>
+          <span class="alarm-label">—</span>
+        </div>
+        <div class="alarm-actions">
+          <label class="switch">
+            <input type="checkbox" class="alarm-toggle" checked />
+            <span></span>
+          </label>
+          <button class="ghost-btn" data-action="delete" aria-label="Удалить">×</button>
+        </div>
+      </div>
+    </template>
+
+    <script type="module" src="./scripts/app.js"></script>
+  </body>
+</html>
