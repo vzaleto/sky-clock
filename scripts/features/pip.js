@@ -3,15 +3,19 @@ import { dom } from '../dom.js';
 let pipWindow = null;
 let pipElements = null;
 
+console.log(documentPictureInPicture)
+
 const supportsPiP = () => typeof documentPictureInPicture?.requestWindow === 'function';
 
 export function initPiP() {
+  console.log(1)
   if (!dom.pinClock) return;
   if (supportsPiP()) {
     dom.pinClock.textContent = 'PiP окно';
     dom.pinClock.title = 'Открыть часы в отдельном PiP-окне';
   }
   dom.pinClock.addEventListener('click', async () => {
+    console.log(2)
     if (!supportsPiP()) {
       fallbackPin();
       return;
@@ -32,8 +36,8 @@ export function updatePiPClock(now) {
     day: 'numeric',
     month: 'long',
   });
-  pipElements.time.textContent = time;
-  pipElements.date.textContent = date;
+  // pipElements.time.textContent = time;
+  // pipElements.date.textContent = date;
 
   const hours = now.getHours() % 12;
   const minutes = now.getMinutes();
@@ -72,8 +76,6 @@ function renderPiPWindow() {
   const { document: pipDoc } = pipWindow;
   pipDoc.body.innerHTML = `
     <div class="pip-shell">
-      <p style="display:none;" class="pip-chip">SkyClock</p>
-       <p style="display:none;" class="pip-time">--:--</p>
       <div class="pip-analog">
         <div class="pip-face"></div>
         <span class="pip-hand pip-hour"></span>
@@ -81,7 +83,6 @@ function renderPiPWindow() {
         <span class="pip-hand pip-second"></span>
         <span class="pip-pin"></span>
       </div>
-      <p style="display:none;" class="pip-date">--</p>
     </div>
   `;
   const style = pipDoc.createElement('style');

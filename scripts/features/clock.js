@@ -30,14 +30,14 @@ function updateClock(renderer) {
   updateAnalogClock(now);
   updatePiPClock(now);
 
-  if (state.weather) {
-    const phase = pickTimePhase(now, state.weather.sunrise, state.weather.sunset);
-    if (phase !== state.timePhase) {
-      state.timePhase = phase;
-      dom.phase.textContent = phaseLabel(phase);
-      renderer.setScene({ timePhase: phase });
-    }
-  }
+  // if (state.weather) {
+  //   const phase = pickTimePhase(now, state.weather.sunrise, state.weather.sunset);
+  //   if (phase !== state.timePhase) {
+  //     state.timePhase = phase;
+  //     dom.phase.textContent = phaseLabel(phase);
+  //     renderer.setScene({ timePhase: phase });
+  //   }
+  // }
 }
 
 function updateAnalogClock(now) {

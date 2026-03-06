@@ -38,5 +38,11 @@ date: document.getElementById('clockDate'),
   hourHand: document.getElementById('clockHourHand'),
   minuteHand: document.getElementById('clockMinuteHand'),
   secondHand: document.getElementById('clockSecondHand'),
+  timerBtn:document.getElementById('timerBtn'),
+  alarmBtn:document.getElementById('alarmBtn'),
+  alarmPanel:document.getElementById('alarmPanel'),
+  timerPanel:document.getElementById('timerPanel'),
+  windArrow:document.getElementById('windArrow'),
+  cloud:document.querySelectorAll('.cloud')
 };
 

@@ -12,6 +12,8 @@ export function initTimer() {
     dom.timerReadout.textContent = `${minutes}:${seconds}`;
     const progress = duration ? 100 - (remaining / duration) * 100 : 0;
     dom.timerProgress.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    console.log(state.timer);
+    setLocalStation(state.timer)
   };
 
   const stopTicker = () => {
@@ -45,6 +47,7 @@ export function initTimer() {
     state.timer.duration = duration;
     state.timer.remaining = duration;
     state.timer.running = true;
+
     startTicker();
     updateReadout();
   });
@@ -63,5 +66,12 @@ export function initTimer() {
   });
 
   updateReadout();
+
+  function setLocalStation(timer){
+   return localStorage.setItem('timer', JSON.stringify(timer))
+  }
+  function getLocalStation(){
+    return JSON.parse(localStorage.getItem('timer'))
+  }
 }
 

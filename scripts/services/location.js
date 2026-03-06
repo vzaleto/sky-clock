@@ -1,129 +1,107 @@
-const fallback = {
-  latitude: 50.4501,
-  longitude: 30.5234,
-  label: 'Киев, Украина',
-  accuracyKm: 30
-};
+export function location() {
 
-export async function resolveLocation() {
-  let location = null;
+    return new Promise((resolve, reject) => {
 
-  // 1) Попытка IP (Cloudflare — без CORS!)
-  location = await tryIPLookup();
-  if (isValidCoords(location)) return location;
+        if (navigator.geolocation) {
+            // Если поддерживает, вызываем getCurrentPosition с тремя аргументами:
+            // 1. success — функция, которая вызывается, если координаты получены
+            // 2. error — функция, которая вызывается при ошибке
+            // 3. options — задаем таймаут 8 секунд
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback, {timeout: 8000})
+        } else {
+            console.warn('Geolocation browser error:');
+            geoLocationByIp().then(function (result){
+                resolve(result)
+            })
+        }
 
-  // 2) Попытка геолокации браузера
-  if (navigator.geolocation) {
-    location = await tryBrowserGeo();
-    if (isValidCoords(location)) return location;
-  }
+        // -------------------------------
+        // Функция success — вызывается, если GPS вернул координаты
+        // -------------------------------
+        function successCallback(position) {
+            const latitude = position.coords.latitude
+            const longitude = position.coords.longitude;
+            // -------------------------------
+            // Функция error — вызывается, если GPS вернул ошибку
+            // -------------------------------
+            resolve({
+                lat:latitude,
+                lon:longitude
+            })
+        }
+        // -------------------------------
+        // Функция error — вызывается, если GPS вернул ошибку
+        // -------------------------------
+        function errorCallback(err) {
+            console.warn('Geolocation error:', err);
+            if (err.code === err.PERMISSION_DENIED) {
+                console.warn('User denied geolocation. Using fallback.');
+            } else if (err.code === err.POSITION_UNAVAILABLE) {
+                console.warn('Position unavailable. Using fallback.');
+            } else if (err.code === err.TIMEOUT) {
+                console.warn('Geolocation timed out. Using fallback.');
+            } else {
+                console.warn('Geolocation error. Using fallback.');
+            }
+            // Теперь используем fallback: сначала пробуем IP
+            geoLocationByIp().then(function (result){
 
-  // 3) Fallback
-  return {
-    ...fallback,
-    warning: 'Определение местоположения не удалось — использован Киев.'
-  };
+                if(result){
+                    resolve(result)
+                }else{
+                    resolve({lat: 50.4501, lon: 30.5234});
+                }
+            })
+
+        }
+    })
 }
 
+// https://api.ip2location.io/?key=67D4EB61C7FF989B1339DA0D6F473557&ip=188.163.50.254
 
-// =======================
-// IP через Cloudflare
-// =======================
-async function tryIPLookup() {
-  try {
-    const res = await fetch("https://api.ipinfo.io/lite/8.8.8.8?token=86f22440d40633");
-    const text = await res.text();
+export async function geoLocationByIp() {
+    try {
+        const response = await fetch(`http://ip-api.com/json/`);
 
-    const data = Object.fromEntries(
-      text.split("\n")
-        .map(line => line.split("="))
-        .filter(x => x.length === 2)
-    );
+        if (!response.ok) {
+            throw new Error(`Could not find location for ${response.status}`);
+        }
+        const data = await response.json();
 
-    if (!data.loc) return null;
+        return {
+            lat: data.lat,
+            lon: data.lon,
+        }
+    } catch (err) {
+        console.error('Geolocation error:', err);
+        return null
+    }
 
-    const [lat, lon] = data.loc.split(",");
-
-    if (!lat || !lon) return null;
-
-    return {
-      latitude: Number(lat),
-      longitude: Number(lon),
-      label: data.city || "Локация по IP",
-      accuracyKm: 25
-    };
-  } catch {
-    return null;
-  }
 }
 
+export async function getCityName(lat,lon){
 
-// =======================
-// Геолокация браузера
-// =======================
-async function tryBrowserGeo() {
-  return new Promise((resolve) => {
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        if (!pos?.coords) return resolve(null);
+    try{
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=ru`);
 
-        const coarse = coarseCoords(pos.coords, 0.1);
+        if(!response.ok){
+            throw new Error(`Could not find location for ${response.status}`);
+        }
 
-        const label = await reverseGeocode(coarse)
-          .catch(() => fallback.label);
+        const data = await response.json();
 
-        resolve({
-          ...coarse,
-          label,
-          accuracyKm: 12
-        });
-      },
-      () => resolve(null),
-      { timeout: 8000 }
-    );
-  });
+        console.log(data)
+
+        if(data.address.city ){
+            return data.address.city
+        }
+        return "unknown city"
+    }catch (error) {
+        console.error(error);
+       return "unknown city"
+    }
 }
 
-
-// =======================
-// Валидация координат
-// =======================
-function isValidCoords(obj) {
-  return (
-    obj &&
-    typeof obj.latitude === "number" &&
-    typeof obj.longitude === "number" &&
-    !Number.isNaN(obj.latitude) &&
-    !Number.isNaN(obj.longitude)
-  );
-}
-
-
-// =======================
-// Квантование
-// =======================
-function coarseCoords(coords, step = 0.1) {
-  const snap = (v) => Number((Math.round(v / step) * step).toFixed(3));
-  return {
-    latitude: snap(coords.latitude),
-    longitude: snap(coords.longitude)
-  };
-}
-
-
-// =======================
-// Reverse geocode
-// =======================
-async function reverseGeocode({ latitude, longitude }) {
-  const url =
-    `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${latitude}&longitude=${longitude}&language=ru&format=json`;
-
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Geo API failed');
-
-  const data = await response.json();
-  const place = data.results?.[0];
-  if (!place) throw new Error('Geo empty');
-
-  return `${place.name}, ${place.country}`;
-}
+// if(data.results && data.results.length > 0){
+//     return data.results[0].name
+// }

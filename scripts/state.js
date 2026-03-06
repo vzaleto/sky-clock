@@ -2,6 +2,8 @@ export const state = {
   location: null,
   weather: null,
   timePhase: 'day',
+  moonPhase:'full',
+  weatherDecode:null,
   alarms: [],
   timer: {
     duration: 30_000,
