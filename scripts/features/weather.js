@@ -19,7 +19,7 @@ export async function weatherInit() {
             state.location = city;
             state.timePhase = getTimePhase();
             state.weatherDecode = weatherDecode;
-            state.moonPhase = getMoonPhase(weather.time)
+            state.moonPhase = getMoonPhase(weather.time);
 
             renderWeather(state)
             moveCloud(state.weather.direction,dom.cloud)
@@ -34,8 +34,6 @@ export async function weatherInit() {
 
     dom.refreshWeather.addEventListener('click', fetchAndREnder)
 }
-
-
 
 function renderWeather({location,weather,weatherDecode,timePhase,moonPhase}){
     dom.temp.textContent = `${Math.round(weather.temperature)} °C`

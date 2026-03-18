@@ -22,6 +22,11 @@ initClock();
 initFloatingClock();
 initPiP();
 initAlarms();
-initTimer();
+
+
 
 weatherInit()
+
+
+
+initTimer()

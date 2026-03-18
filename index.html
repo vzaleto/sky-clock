@@ -4,12 +4,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>SkyClock — часы, будильник, таймер и погода</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
-            rel="stylesheet"
-    />
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com"/>-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frijole&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./styles.css"/>
     <link rel="stylesheet" href="./background.css"/>
 </head>
@@ -17,6 +19,30 @@
 <canvas id="skyCanvas" aria-hidden="true"></canvas>
 
 <div class="background-container">
+<!--    <div class="fog">-->
+<!--        <div class="fog__layer fog__layer&#45;&#45;1"></div>-->
+<!--        <div class="fog__layer fog__layer&#45;&#45;2"></div>-->
+<!--        <div class="fog__layer fog__layer&#45;&#45;3"></div>-->
+<!--    </div>-->
+
+    <div class="fog">
+        <div class="waves-wave-1">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="waves-wave-2">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     <div class="front">
         <span class="ground"></span>
         <div class="person">
@@ -167,15 +193,15 @@
             <span class="logo-dot"></span>
             <div>
                 <p class="eyebrow">SkyClock</p>
-                <h1>Умные часы с погодой</h1>
+                <h1 class="general-title" >Smart clock & Weather</h1>
             </div>
         </div>
         <div class="location-chip">
             <div>
-                <p id="locationName">Определяем местоположение…</p>
-                <small id="geoAccuracy">точность ±0 км</small>
+                <p id="locationName">Determine the location…</p>
+                <small id="geoAccuracy">Accuracy ±0 км</small>
             </div>
-            <button id="refreshWeather" class="ghost-btn">Обновить</button>
+            <button id="refreshWeather" class="ghost-btn">Update</button>
         </div>
     </header>
 
@@ -183,7 +209,7 @@
         <section class="panel clock-panel">
             <div class="clock-head">
                 <div style="text-align: center;">
-                    <p class="eyebrow">Локальное время</p>
+                    <p class="eyebrow">Local time</p>
                     <div class="clock-visual" aria-hidden="true">
                         <div class="analog-clock" id="analogClock">
                             <span class="clock-hand hour" id="clockHourHand"></span>
@@ -196,44 +222,44 @@
                 </div>
 
                 <div class="clock-actions">
-                    <button style="display: none;" id="toggleFloating" class="pill-btn">Плавающее окно</button>
+                    <button style="display: none;" id="toggleFloating" class="pill-btn">Плавающее window</button>
                     <button id="pinClock" class="pill-btn">Закрепить поверх</button>
-                    <button id="alarmBtn" type="button" class="pill-btn">будільнік</button>
-                    <button id="timerBtn" type="button" class="pill-btn">таймер</button>
+                    <button id="alarmBtn" type="button" class="pill-btn">Alarm</button>
+                    <button id="timerBtn" type="button" class="pill-btn">Timer</button>
                 </div>
             </div>
             <div class="clock-meta">
                 <div>
-                    <p class="label">Температура</p>
+                    <p class="label">Temp</p>
                     <p id="temperature">— °C</p>
                 </div>
                 <div>
-                    <p class="label">Ветер</p>
-                    <p id="wind">💨 — м/с</p>
+                    <p class="label">Wind</p>
+                    <p id="wind">💨 — м/s</p>
                     <div class="block-wind_arrow">
                         <p class="top" >N</p>
                         <div>
-                            <p class="west" >запад</p>
+                            <p class="west" >W</p>
                             <p id="windArrow" class="arrow">&#8593;</p>
-                            <p class="east">восток</p>
+                            <p class="east">E</p>
                         </div>
-                        <p class="south">юг</p>
+                        <p class="south">S</p>
                     </div>
 
                 </div>
                 <div>
-                    <p class="label">Видимость</p>
+                    <p class="label">Visibility</p>
                     <p id="visibility">— км</p>
                 </div>
 
             </div>
             <div class="clock-meta">
                 <div>
-                    <p class="label">Режим освещения</p>
+                    <p class="label">Lighting mode</p>
                     <p id="timePhase">—</p>
                 </div>
                 <div>
-                    <p class="label">Погодное состояние</p>
+                    <p class="label">Weather conditions</p>
                     <p id="weatherSummary">—</p>
                 </div>
             </div>
@@ -241,47 +267,51 @@
 
         <section class="panel alarm-panel" id="alarmPanel">
             <header>
-                <h2>Будильники</h2>
-                <small>Создавайте и включайте несколько сигналов</small>
+                <h2>Alarm</h2>
+                <small>Create and activate multiple signals</small>
             </header>
             <form id="alarmForm" class="alarm-form">
                 <label>
-                    <span>Время</span>
+                    <span>Time</span>
                     <input type="time" id="alarmTime" required/>
                 </label>
                 <label>
-                    <span>Название</span>
-                    <input type="text" id="alarmLabel" placeholder="Например, Подъём"/>
+                    <span>Name</span>
+                    <input type="text" id="alarmLabel" placeholder="Example, Waykup"/>
                 </label>
-                <button type="submit" class="pill-btn">Добавить</button>
+                <button type="submit" class="pill-btn">Add</button>
             </form>
             <div id="alarmsList" class="alarms-list empty">
-                <p>Будильников пока нет</p>
+                <p>No alarm clocks yet</p>
             </div>
         </section>
 
         <section class="panel timer-panel" id="timerPanel">
             <header>
                 <h2>Таймер</h2>
-                <small>Быстрый отсчёт с паузой и сбросом</small>
+                <small>Quick countdown with pause and reset</small>
             </header>
             <form id="timerForm" class="timer-form">
                 <label>
-                    <span>Минуты</span>
-                    <input type="number" id="timerMinutes" min="0" max="999" value="0"/>
+                    <span>hours</span>
+                    <input type="number" id="timerHours" min="0" max="59" value="" placeholder="0" />
                 </label>
                 <label>
-                    <span>Секунды</span>
-                    <input type="number" id="timerSeconds" min="0" max="59" value="30"/>
+                    <span>Minutes</span>
+                    <input type="number" id="timerMinutes" min="0" max="59" value="" placeholder="0" />
+                </label>
+                <label>
+                    <span>Seconds</span>
+                    <input type="number" id="timerSeconds" min="0" max="59" value="" placeholder="0" />
                 </label>
                 <div class="timer-actions">
-                    <button type="submit" class="pill-btn">Старт</button>
-                    <button type="button" id="pauseTimer" class="ghost-btn">Пауза</button>
-                    <button type="button" id="resetTimer" class="ghost-btn">Сброс</button>
+                    <button type="submit" class="pill-btn" id="startTimer">Start</button>
+                    <button type="button" id="pauseTimer" class="ghost-btn">Pause</button>
+                    <button type="button" id="resetTimer" class="ghost-btn">Reset</button>
                 </div>
             </form>
             <div class="timer-display">
-                <p id="timerReadout">00:30</p>
+                <p id="timerReadout">00:00:00</p>
                 <div class="timer-progress">
                     <span id="timerProgress"></span>
                 </div>

@@ -50,12 +50,16 @@ export function cloudSpeed(windSpeed){
 
     let duration = 80 - (windSpeed * 3)
 
-    if(duration > maximumSpeed) return  duration = maximumSpeed;
-    if(duration < minimumSpeed) return  duration = minimumSpeed;
+    if(duration > maximumSpeed)   duration = maximumSpeed;
+    if(duration < minimumSpeed)   duration = minimumSpeed;
 
     console.log(duration)
     root.style.setProperty("--cloud-speed", duration + "s");
 }
+// export function baloon(windSpeed){
+//     const root = document.documentElement;
+//
+// }
 // ======================================== kevin spacer ==================
 
 export function capitalize(text) {
