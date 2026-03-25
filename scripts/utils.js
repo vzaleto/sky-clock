@@ -115,24 +115,3 @@ export function nextAlarmTimestamp(timeValue) {
 //     return 'night';
 // }
 
-// makeStars(phase) {
-//   //   if (phase === 'day') return [];
-//   //   const count = phase === 'night' ? 200 : 40;
-//   //   return Array.from({ length: count }, () => ({
-//   //     x: Math.random() * this.width,
-//   //     y: Math.random() * (this.height * 0.7),
-//   //     size: Math.random() * 1.5,
-//   //     twinkle: Math.random(),
-//   //   }));
-//   // }
-//if (!this.stars.length) return;
-//     ctx.fillStyle = '#ffffff';
-//     this.stars.forEach((star) => {
-//       const twinkle = 0.3 + Math.sin(performance.now() * 0.001 + star.twinkle) * 0.3;
-//       ctx.globalAlpha = twinkle;
-//       ctx.beginPath();
-//       ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-//       ctx.fill();
-//     });
-//     ctx.globalAlpha = 1;
-//   }
