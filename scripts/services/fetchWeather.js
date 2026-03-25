@@ -44,24 +44,24 @@ export async function fetchWeather({lat, lon}) {
 
 export function decodeWeather(code, cover = 0) {
   const map = {
-    0: { kind: 'clear', label: 'Ясно', hint: 'Небо открыто' },
-    1: { kind: 'partly', label: 'Преимущественно ясно', hint: 'Лёгкие облака' },
-    2: { kind: 'cloudy', label: 'Облачно', hint: 'Средняя облачность' },
-    3: { kind: 'overcast', label: 'Пасмурно', hint: 'Плотная облачность' },
-    45: { kind: 'fog', label: 'Туман', hint: 'Видимость снижена' },
-    48: { kind: 'fog', label: 'Изморозь', hint: 'Холодный туман' },
-    51: { kind: 'drizzle', label: 'Морось', hint: 'Лёгкий дождь' },
-    53: { kind: 'drizzle', label: 'Морось', hint: 'Умеренный дождь' },
-    55: { kind: 'drizzle', label: 'Морось', hint: 'Сильный дождь' },
-    61: { kind: 'rain', label: 'Дождь', hint: 'Продолжительные осадки' },
-    63: { kind: 'rain', label: 'Дождь', hint: 'Умеренный дождь' },
-    65: { kind: 'rain', label: 'Ливень', hint: 'Сильный дождь' },
-    71: { kind: 'snow', label: 'Снег', hint: 'Снегопад' },
-    73: { kind: 'snow', label: 'Снег', hint: 'Умеренный снег' },
-    75: { kind: 'snow', label: 'Снег', hint: 'Сильный снег' },
-    95: { kind: 'storm', label: 'Гроза', hint: 'Возможны молнии' },
-    96: { kind: 'storm', label: 'Гроза с градом', hint: 'Берегитесь града' },
-    99: { kind: 'storm', label: 'Гроза с градом', hint: 'Град и молнии' },
+    0: { kind: 'clear', label: 'Clear', hint: 'Небо открыто' },
+    1: { kind: 'partly', label: 'Mostly clear', hint: 'Лёгкие облака' },
+    2: { kind: 'cloudy', label: 'Cloudy', hint: 'Средняя облачность' },
+    3: { kind: 'overcast', label: 'Cloudy', hint: 'Плотная облачность' },
+    45: { kind: 'fog', label: 'Fog', hint: 'Видимость снижена' },
+    48: { kind: 'fog', label: 'Rimo', hint: 'Холодный туман' },
+    51: { kind: 'drizzle', label: 'Drizzle', hint: 'Лёгкий дождь' },
+    53: { kind: 'drizzle', label: 'Drizzle', hint: 'Умеренный дождь' },
+    55: { kind: 'drizzle', label: 'Drizzle', hint: 'Сильный дождь' },
+    61: { kind: 'rain', label: 'Rain', hint: 'Продолжительные осадки' },
+    63: { kind: 'rain', label: 'Rain', hint: 'Умеренный дождь' },
+    65: { kind: 'rain', label: 'Downpour', hint: 'Сильный дождь' },
+    71: { kind: 'snow', label: 'Snow', hint: 'Снегопад' },
+    73: { kind: 'snow', label: 'Snow', hint: 'Умеренный снег' },
+    75: { kind: 'snow', label: 'Snow', hint: 'Сильный снег' },
+    95: { kind: 'storm', label: 'Thunderstorm', hint: 'Возможны молнии' },
+    96: { kind: 'storm', label: 'Thunderstorm with hail', hint: 'Берегитесь града' },
+    99: { kind: 'storm', label: 'Thunderstorm with hail', hint: 'Град и молнии' },
   };
-  return map[code] ?? { kind: cover > 70 ? 'overcast' : 'partly', label: 'Переменная облачность', hint: 'Комфортные условия' };
+  return map[code] ?? { kind: cover > 70 ? 'overcast' : 'partly', label: 'Cloudy', hint: 'Comfortable condition' };
 }

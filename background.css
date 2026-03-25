@@ -230,28 +230,33 @@ body:not([data-light="sun"]) .sun, body:not([data-light="sun"]) .sun-rays {
     opacity: 0;
 }
 
-body[data-light="moon"] .moon {
+body[data-light="moon"] .moon-block {
     opacity: 1;
+}
+.moon-block{
+    position: absolute;
+    animation: mover 3.5s infinite alternate;
+    top: 4.5em;
+    right: 15.5em;
+    opacity: 0;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
 }
 
 .moon {
     background-color: currentColor;
     position: relative;
-    /*padding: 10px;*/
-    left: 40%;
     width: 250px;
     height: 250px;
     border-radius: 50%;
+    margin: auto;
     box-shadow: 5px 0 10px 3px rgba(229, 229, 229, 0.3),
     0 0 10px 2px rgba(229, 229, 229, 0.3),
     5px 0 10px 3px rgba(229, 229, 229, 0.3),
     0px 0 3px 2px rgba(229, 229, 229, 0.3);
-    top: 150px;
-    right: 5%;
-    bottom: 0;
-    margin: auto;
-    opacity: 0;
-    animation: mover 3.5s infinite alternate;
+
 }
 
 
@@ -274,7 +279,67 @@ body[data-light="moon"] .moon {
     -107px 85px 0 -5px rgba(162, 162, 162, 0.99999);
 }
 
+/*body[data-moon="full"] .waxing, body[data-moon="full"] .waning{*/
+/*opacity: 0;*/
+/*}*/
 
+body[data-moon="waxing"] .center{  /* растущая */
+    opacity: 0.7;
+    left: -55%;
+}
+body[data-moon="waning"] .center{   /* убывающа */
+    opacity: 0.6;
+    left: 55%;
+}
+body[data-moon="full"] {
+    opacity: 0;
+}
+.center {
+    position: absolute;
+    top: 14px;
+    left: 55%;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    height: 250px;
+    background-color: #0f0f0e;
+    border-radius: 50%;
+    box-shadow: 59px 7px 6px 21px #06040000;
+    z-index: 9;
+    margin: 0;
+    opacity: 0.7;
+}
+
+/*.waning{*/
+/*    background: black;*/
+/*    position: relative;*/
+/*    left: 40%;*/
+/*    width: 250px;*/
+/*    height: 250px;*/
+/*    border-radius: 50%;*/
+/*    top: -8%;*/
+/*    right: 5%;*/
+/*    bottom: 0;*/
+/*    margin: auto;*/
+/*    opacity: 0.6;*/
+/*    animation: mover 3.5s infinite alternate;*/
+/*    z-index: 0;*/
+/*}*/
+/*.waning:before{*/
+/*    content: "";*/
+/*    background: black;*/
+/*    position: absolute;*/
+/*    left: 24%;*/
+/*    width: 250px;*/
+/*    height: 250px;*/
+/*    border-radius: 50%;*/
+/*    top: -27%;*/
+/*    margin: auto;*/
+/*    opacity: 1;*/
+/*    animation: mover 3.5s infinite alternate;*/
+/*    z-index:3;*/
+/*}*/
+/* ================================== */
 .person {
     position: absolute;
     bottom: 4.8em;

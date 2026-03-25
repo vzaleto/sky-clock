@@ -41,6 +41,26 @@ body {
 .hidden {
   display: none;
 }
+/* Standard syntax (most modern browsers) */
+::placeholder {
+  color: #f6f4ff;
+}
+
+/* Older Firefox versions (opacity fix) */
+::-moz-placeholder {
+  color: #f6f4ff;
+  opacity: 1; /* Fixes Firefox's default lower opacity */
+}
+
+/* Older WebKit browsers (Chrome, Safari) */
+::-webkit-input-placeholder {
+  color: #f6f4ff;
+}
+
+/* Older Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  color: #f6f4ff;
+}
 
 .block-wind_arrow .top {
   margin: 0px 0px 7px 0;

@@ -1,3 +1,4 @@
+
 export function getTimePhase() {
     const hours = new Date().getHours();
     if (hours >= 5 && hours < 12) return 'morning';
@@ -18,19 +19,10 @@ export function getMoonOrSun(sunrise, sunset) {
 
 }
 
-export function getMoonPhase(time) {
-    console.log("getMoonPhase", time)
-    const date = new Date(time)
-    const day = date.getDate();
-    console.log(day)
-    if (day > 13 && day < 17) return 'full';
-    if (day < 15) return 'waxing';
-    return 'waning';
-}
-
 export function openClose(btn, panel) {
     btn.addEventListener('click', function () {
         panel.classList.toggle('hidden');
+         btn.classList.toggle('is-active');
     })
 }
 export function moveCloud(windDirection, elem){
@@ -56,10 +48,24 @@ export function cloudSpeed(windSpeed){
     console.log(duration)
     root.style.setProperty("--cloud-speed", duration + "s");
 }
-// export function baloon(windSpeed){
-//     const root = document.documentElement;
-//
-// }
+
+export function getMoonPhase(time) {
+    const date = new Date(time);
+    const newMoon = new Date('2024-01-11T11:57:00Z');
+
+    const days = (date - newMoon) / (1000 * 60 * 60 * 24);
+    const cycle = 29.53;
+    const phase = days % cycle;
+
+    if (phase > 14 && phase < 16) return 'full';
+    if (phase < 14) return 'waxing';
+    return 'waning';
+}
+
+export function baloon(windSpeed){
+    const root = document.documentElement;
+
+}
 // ======================================== kevin spacer ==================
 
 export function capitalize(text) {
@@ -67,19 +73,19 @@ export function capitalize(text) {
 }
 
 export function formatTime(date) {
-    return date.toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'});
+    return date.toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit',second: '2-digit',});
 }
 
-export function phaseLabel(phase) {
-    return (
-        {
-            night: 'Ночь',
-            dawn: 'Рассвет',
-            day: 'День',
-            dusk: 'Закат',
-        }[phase] || 'День'
-    );
-}
+// export function phaseLabel(phase) {
+//     return (
+//         {
+//             night: 'Ночь',
+//             dawn: 'Рассвет',
+//             day: 'День',
+//             dusk: 'Закат',
+//         }[phase] || 'День'
+//     );
+// }
 
 
 export function nextAlarmTimestamp(timeValue) {
@@ -91,21 +97,21 @@ export function nextAlarmTimestamp(timeValue) {
     return target.getTime();
 }
 
-export function pickTimePhase(now, sunriseISO, sunsetISO) {
-    if (!sunriseISO || !sunsetISO) {
-        const hour = now.getHours();
-        if (hour < 5 || hour >= 22) return 'night';
-        if (hour < 9) return 'dawn';
-        if (hour >= 18) return 'dusk';
-        return 'day';
-    }
-    const sunrise = new Date(sunriseISO);
-    const sunset = new Date(sunsetISO);
-    const hour = now.getTime();
-    if (hour < sunrise.getTime() - 45 * 60 * 1000) return 'night';
-    if (hour < sunrise.getTime() + 60 * 60 * 1000) return 'dawn';
-    if (hour < sunset.getTime() - 60 * 60 * 1000) return 'day';
-    if (hour < sunset.getTime() + 45 * 60 * 1000) return 'dusk';
-    return 'night';
-}
+// export function pickTimePhase(now, sunriseISO, sunsetISO) {
+//     if (!sunriseISO || !sunsetISO) {
+//         const hour = now.getHours();
+//         if (hour < 5 || hour >= 22) return 'night';
+//         if (hour < 9) return 'dawn';
+//         if (hour >= 18) return 'dusk';
+//         return 'day';
+//     }
+//     const sunrise = new Date(sunriseISO);
+//     const sunset = new Date(sunsetISO);
+//     const hour = now.getTime();
+//     if (hour < sunrise.getTime() - 45 * 60 * 1000) return 'night';
+//     if (hour < sunrise.getTime() + 60 * 60 * 1000) return 'dawn';
+//     if (hour < sunset.getTime() - 60 * 60 * 1000) return 'day';
+//     if (hour < sunset.getTime() + 45 * 60 * 1000) return 'dusk';
+//     return 'night';
+// }
 

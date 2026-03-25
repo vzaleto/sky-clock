@@ -19,12 +19,6 @@
 <canvas id="skyCanvas" aria-hidden="true"></canvas>
 
 <div class="background-container">
-<!--    <div class="fog">-->
-<!--        <div class="fog__layer fog__layer&#45;&#45;1"></div>-->
-<!--        <div class="fog__layer fog__layer&#45;&#45;2"></div>-->
-<!--        <div class="fog__layer fog__layer&#45;&#45;3"></div>-->
-<!--    </div>-->
-
     <div class="fog">
         <div class="waves-wave-1">
             <span></span>
@@ -81,7 +75,14 @@
     <div class="back">
         <span class="sun-rays"></span>
         <span class="sun"></span>
-        <div class="moon"></div>
+        <div class="moon-block" >
+            <div class="moon"></div>
+            <div class="center"></div>
+        </div>
+
+<!--        <div class="waxing" ></div>-->
+<!--        <div class="waning" ></div>-->
+
     </div>
 
     <div class="cloud one">
@@ -288,25 +289,28 @@
 
         <section class="panel timer-panel" id="timerPanel">
             <header>
-                <h2>Таймер</h2>
+                <h2>Timer</h2>
                 <small>Quick countdown with pause and reset</small>
             </header>
             <form id="timerForm" class="timer-form">
+
                 <label>
-                    <span>hours</span>
-                    <input type="number" id="timerHours" min="0" max="59" value="" placeholder="0" />
+                    <span>Hours</span>
+                    <input type="number" id="razdva" min="0" max="59" value="" placeholder="0" />
                 </label>
+
                 <label>
                     <span>Minutes</span>
                     <input type="number" id="timerMinutes" min="0" max="59" value="" placeholder="0" />
                 </label>
+
                 <label>
                     <span>Seconds</span>
                     <input type="number" id="timerSeconds" min="0" max="59" value="" placeholder="0" />
                 </label>
                 <div class="timer-actions">
                     <button type="submit" class="pill-btn" id="startTimer">Start</button>
-                    <button type="button" id="pauseTimer" class="ghost-btn">Pause</button>
+                    <button type="button" id="pauseTimer" class="ghost-btn" disabled="disabled" >Pause</button>
                     <button type="button" id="resetTimer" class="ghost-btn">Reset</button>
                 </div>
             </form>

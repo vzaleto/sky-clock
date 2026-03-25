@@ -1,19 +1,19 @@
 import { dom } from '../dom.js';
 import { state } from '../state.js';
-import { capitalize, phaseLabel, pickTimePhase } from '../utils.js';
+import { capitalize} from '../utils.js';
 import { updatePiPClock } from './pip.js';
 
-export function initClock(renderer) {
-  updateClock(renderer);
-  setInterval(() => updateClock(renderer), 1000);
+export function initClock() {
+  updateClock();
+  setInterval(() => updateClock(), 1000);
 }
 
-function updateClock(renderer) {
+function updateClock() {
   const now = new Date();
   const timeString = now.toLocaleTimeString('ru-RU', {
     hour: '2-digit',
     minute: '2-digit',
-    second: undefined,
+    second: '2-digit',
   });
  
   dom.floatingTime.textContent = timeString;
@@ -24,20 +24,11 @@ function updateClock(renderer) {
     month: 'long',
   });
   const capitalizedDate = capitalize(dateString);
-  // dom.date.textContent = capitalizedDate;
+  dom.date.textContent = capitalizedDate;
   dom.floatingDate.textContent = capitalizedDate;
 
   updateAnalogClock(now);
   updatePiPClock(now);
-
-  // if (state.weather) {
-  //   const phase = pickTimePhase(now, state.weather.sunrise, state.weather.sunset);
-  //   if (phase !== state.timePhase) {
-  //     state.timePhase = phase;
-  //     dom.phase.textContent = phaseLabel(phase);
-  //     renderer.setScene({ timePhase: phase });
-  //   }
-  // }
 }
 
 function updateAnalogClock(now) {
