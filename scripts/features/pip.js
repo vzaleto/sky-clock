@@ -3,9 +3,14 @@ import { dom } from '../dom.js';
 let pipWindow = null;
 let pipElements = null;
 
-console.log(documentPictureInPicture)
 
-const supportsPiP = () => typeof documentPictureInPicture?.requestWindow === 'function';
+
+const supportsPiP = () => {
+ return  'documentPictureInPicture' in window &&
+  typeof window.documentPictureInPicture.requestWindow === 'function'
+
+}
+
 
 export function initPiP() {
   console.log(1)

@@ -64,8 +64,24 @@ export function getMoonPhase(time) {
 
 export function baloon(windSpeed){
     const root = document.documentElement;
-
 }
+export function star(){
+    const stars = [];
+    for (let i = 0; i < 250; i++) {
+        stars.push(`${Math.random()*2000}px ${Math.random()*2000}px white`);
+    }
+    const stars2 = [];
+    for (let i = 0; i < 250; i++) {
+        stars2.push(`${Math.random()*1500}px ${Math.random()*1500}px white`);
+    }
+    document.querySelector('.stars').style.boxShadow = stars.join(',');
+    document.querySelector('.stars1').style.boxShadow = stars2.join(',');
+}
+
+
+
+
+
 // ======================================== kevin spacer ==================
 
 export function capitalize(text) {

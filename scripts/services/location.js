@@ -57,11 +57,9 @@ export function location() {
     })
 }
 
-// https://api.ip2location.io/?key=67D4EB61C7FF989B1339DA0D6F473557&ip=188.163.50.254
-
 export async function geoLocationByIp() {
     try {
-        const response = await fetch(`http://ip-api.com/json/`);
+        const response = await fetch(`https://ipapi.co/json/`);
 
         if (!response.ok) {
             throw new Error(`Could not find location for ${response.status}`);
@@ -69,8 +67,8 @@ export async function geoLocationByIp() {
         const data = await response.json();
 
         return {
-            lat: data.lat,
-            lon: data.lon,
+            lat: data.latitude,
+            lon: data.longitude,
         }
     } catch (err) {
         console.error('Geolocation error:', err);
@@ -101,7 +99,3 @@ export async function getCityName(lat,lon){
        return "unknown city"
     }
 }
-
-// if(data.results && data.results.length > 0){
-//     return data.results[0].name
-// }

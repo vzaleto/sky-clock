@@ -7,7 +7,7 @@ import { initTimer } from './features/timer.js';
 import {weatherInit} from './features/weather.js';
 import { initPiP } from './features/pip.js';
 import { initNotifications } from './features/notifications.js';
-import {getMoonPhase, moveCloud, openClose} from "./utils.js";
+import {getMoonPhase, moveCloud, openClose, star} from "./utils.js";
 
 
 openClose(dom.timerBtn, dom.timerPanel)
@@ -18,7 +18,7 @@ initPiP();
 initClock();
 initTimer()
 weatherInit()
-
+star()
 initNotifications();
 getMoonPhase(new Date())
 initAlarms();

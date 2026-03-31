@@ -22,13 +22,10 @@ body {
   background: radial-gradient(circle at 20% 20%, #1e2c51, #050914 70%);
   color: #f6f4ff;
   overflow-x: hidden;
-  /*font-family: 'Space Grotesk', sans-serif;*/
-  /*font-style: normal;*/
-  /*font-weight: 400;*/
-
   font-family: "Frijole", system-ui;
   font-weight: 400;
   font-style: normal;
+  font-size: 18px;
 }
 
 #skyCanvas {
@@ -534,10 +531,7 @@ input[type='number']::-webkit-outer-spin-button {
   min-width: 80px;
 }
 
-@media (max-width: 720px) {
-  .clock-panel {
-    grid-column: span 1;
-  }
+@media screen and (max-width: 720px) {
 
   .clock-visual {
     flex: 1 1 100%;
@@ -547,8 +541,33 @@ input[type='number']::-webkit-outer-spin-button {
     right: 1rem;
     left: 1rem;
   }
-}
+  body {
+    font-size: 14px;
+  }
 
+}
+@media screen and (max-width: 580px) {
+  .panels-grid {
+
+    grid-template-columns: repeat(auto-fit, minmax(280px, 500px));
+    gap: 0rem;
+  }
+  .alarm-panel,.timer-panel,.clock-actions{
+    display: none;
+  }
+  .location-chip {
+    padding: 10px;
+  }
+  p{
+    margin: 0;
+  }
+  body .general-title {
+    font-size: 18px;
+  }
+  .panel {
+    padding:0.5em
+  }
+}
 
 /*===================================================================================*/
 
