@@ -756,7 +756,6 @@ body[data-weather="fog"] .fog{
     width: 100%;
     height: 100%;
     border-radius: 2em;
-    /*background: slategrey;*/
     text-align: center;
     position: relative;
     box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
